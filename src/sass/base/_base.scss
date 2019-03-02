@@ -6,9 +6,12 @@
 
 html {
   // this defines what 1rem is
-  font-size: 62.5%;
+  // font-size: 62.5%;
+
+  // I commented it because I used bootstrap in this gulp-boilerplate
 }
 
 body {
   box-sizing: border-box;
+  background-color: $main_color;
 }

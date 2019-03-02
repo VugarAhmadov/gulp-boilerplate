@@ -20,10 +20,40 @@ const del = require('del');
 ===============   CONFIG   ====================
 =============================================*/
 const config = {
-    'server': './dist',
+    server: './dist',
     templates: {
         input: 'src/templates/*.ejs',
         output: 'dist/'
+    },
+    vendors: {
+        jquery: {
+            input: 'node_modules/jquery/dist/jquery.min.js',
+            output: 'dist/assets/vendors/jquery/'
+        },
+        popper: {
+            input: 'node_modules/popper.js/dist/umd/popper.min.js',
+            output: 'dist/assets/vendors/popper.js/'
+        },
+        bootstrap: {
+            js: {
+                input: 'node_modules/bootstrap/dist/js/bootstrap.min.js',
+                output: 'dist/assets/vendors/bootstrap/js/'
+            },
+            css: {
+                input: 'node_modules/bootstrap/dist/css/bootstrap.min.css',
+                output: 'dist/assets/vendors/bootstrap/css/'
+            }
+        },
+        font_awesome: {
+            css: {
+                input: 'node_modules/@fortawesome/fontawesome-free/css/all.min.css',
+                output: 'dist/assets/vendors/fontawesome/css/'
+            },
+            fonts: {
+                input: 'node_modules/@fortawesome/fontawesome-free/webfonts/*',
+                output: 'dist/assets/vendors/fontawesome/webfonts/'
+            }
+        }
     },
     sass: {
         input: 'src/sass/*.scss',
@@ -56,10 +86,26 @@ gulp.task('serve', function() {
 });
 
 gulp.task('clean', () => 
-    del([
-        'dist/assets/**/*'
-    ])
+    del(['dist/assets/**/*'])
 );
+
+gulp.task('vendors:fonts', () => 
+    gulp.src(config.vendors.font_awesome.fonts.input).pipe(gulp.dest(config.vendors.font_awesome.fonts.output))
+);
+gulp.task('vendors:css', () => {
+    const bootstrap_css = gulp.src(config.vendors.bootstrap.css.input).pipe(gulp.dest(config.vendors.bootstrap.css.output));
+    const font_awesome_css = gulp.src(config.vendors.font_awesome.css.input).pipe(gulp.dest(config.vendors.font_awesome.css.output))
+
+    return Promise.all([bootstrap_css, font_awesome_css]);
+});
+gulp.task('vendors:js', () => {
+    const jquery_js = gulp.src(config.vendors.jquery.input).pipe(gulp.dest(config.vendors.jquery.output));
+    const popper_js = gulp.src(config.vendors.popper.input).pipe(gulp.dest(config.vendors.popper.output));
+    const bootstrap_js = gulp.src(config.vendors.bootstrap.js.input).pipe(gulp.dest(config.vendors.bootstrap.js.output));
+
+    return Promise.all([jquery_js, popper_js, bootstrap_js]);
+});
+gulp.task('vendors', gulp.parallel('vendors:fonts', 'vendors:css', 'vendors:js'));
 
 gulp.task('ejs', () => 
     gulp.src(config.templates.input)
@@ -116,11 +162,11 @@ gulp.task('watch', () => {
 });
 
 
-/*=============================================
-==============   GULP DEFAULT   ===============
+/*===============================================
+==============   GULP DEFAULT   =================
 // =============================================*/
 gulp.task('default', gulp.series(
     ['clean'],
-    gulp.parallel('ejs', 'sass', 'scripts', 'images', 'fonts'),
+    gulp.parallel('vendors', 'ejs', 'sass', 'scripts', 'images', 'fonts'),
     gulp.parallel('watch', 'serve')
 ));

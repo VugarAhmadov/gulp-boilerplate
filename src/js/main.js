@@ -1,1 +1,5 @@
-console.log("scripts is working");
+$(function() {
+
+  console.log('gulp works...');
+  
+});

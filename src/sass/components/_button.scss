@@ -1,0 +1,13 @@
+.custom-btn {
+  display: block;
+  background-color: #fff;
+  color: $main-color;
+  padding: .5rem 2rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  border-radius: 5px;
+  box-shadow: 5px 4px 15px rgba(0, 0, 0, 0.16);
+  transition: background-color .5s;
+  width: 16rem;
+}
