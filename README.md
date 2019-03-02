@@ -31,7 +31,7 @@ npm install -g gulp
 npm install -g gulp-cli
 ```
 
-CLI version: 2.0.1
+CLI version: 2.0.1__
 Local version: 4.0.0
 
 
