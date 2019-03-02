@@ -6,6 +6,7 @@
 const gulp = require('gulp');
 const ejs = require('gulp-ejs');
 const sass = require('gulp-sass');
+const sourcemaps = require('gulp-sourcemaps');
 const autoprefixer = require('gulp-autoprefixer');
 const notify = require('gulp-notify');
 const uglify = require('gulp-uglify');
@@ -54,6 +55,10 @@ const config = {
                 output: 'dist/assets/vendors/fontawesome/webfonts/'
             }
         }
+    },
+    sourcemaps: {
+        css: 'dist/assets/maps/css',
+        js: 'dist/assets/maps/js'
     },
     sass: {
         input: 'src/sass/*.scss',
@@ -116,6 +121,7 @@ gulp.task('ejs', () =>
 
 gulp.task('sass', () => 
     gulp.src(config.sass.input)
+        .pipe(sourcemaps.init())
         .pipe(sass({outputStyle: 'compressed'}))
         .pipe(autoprefixer({
             browsers: ['last 10 versions'],
@@ -124,16 +130,19 @@ gulp.task('sass', () =>
         .pipe(rename({suffix : '.min'}))
         .on("error", notify.onError({
             message: "Error: <%= error.message %>",
-            title: 'sassda problem cixdi'
+            title: 'There is an error on sass file'
         }))
+        .pipe(sourcemaps.write(config.sourcemaps.css))
         .pipe(gulp.dest(config.sass.output))
         .pipe(browserSync.reload({stream:true}))
 );
 
 gulp.task('scripts', () => 
     gulp.src(config.scripts.input)
+        .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(rename({suffix: '.min'}))
+        .pipe(sourcemaps.write(config.sourcemaps.js))
         .pipe(gulp.dest(config.scripts.output))
         .on('end', browserSync.reload)
 );
