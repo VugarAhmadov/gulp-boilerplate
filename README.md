@@ -48,7 +48,7 @@ gulp
 ```
 
 ## Vendors
-**Bootstrap** - v4.3.1
-**jQuery** - v3.3.1
-**popper.js** - v1.14.7
-**FontAwesome.js** - v5.7.2
+* **Bootstrap** - v4.3.1
+* **jQuery** - v3.3.1
+* **popper.js** - v1.14.7
+* **FontAwesome.js** - v5.7.2
