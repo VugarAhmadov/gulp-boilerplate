@@ -57,8 +57,8 @@ const config = {
         }
     },
     sourcemaps: {
-        css: 'dist/assets/maps/css',
-        js: 'dist/assets/maps/js'
+        css: '../maps/css',
+        js: '../maps/js'
     },
     sass: {
         input: 'src/sass/*.scss',

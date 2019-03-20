@@ -1,4 +1,4 @@
-# gulp_boilerplate
+# gulp-boilerplate
 A [Bootstrap](https://getbootstrap.com/) v4.3.1 boilerplate with [Sass](http://sass-lang.com/), concatenation, minification, autoprefixer, [Browsersync](https://www.browsersync.io/), hot reloading all runned by [Gulp](https://gulpjs.com/).
 
 ![bootstrap logo](https://user-images.githubusercontent.com/10498583/31125543-e2a88c2c-a848-11e7-87b0-d20ea38d41d0.jpg)
